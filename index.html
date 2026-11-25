@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#12263A">
+<title>Delta Móvil · Reporte de turno</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg">
+<link rel="apple-touch-icon" href="icons/icon.svg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top"><img id="hdrLogo" alt="" hidden><div><h1 id="unitName">Delta Móvil</h1><p id="subtitle">Reporte de turno</p></div></header>
+<main>
+<section id="view-new" class="view">
+  <form id="form" novalidate>
+    <div class="card"><h2>Turno</h2>
+      <div class="row"><label>Fecha<input type="date" id="date" required></label>
+      <label>Turno<select id="shift"><option>Diurno</option><option>Nocturno</option><option>Mixto</option></select></label></div>
+      <label>Chofer de turno<input id="driver" list="driverList" autocomplete="off" placeholder="Nombre y apellido" required></label>
+      <datalist id="driverList"></datalist>
+    </div>
+    <div class="card"><h2>Kilometraje</h2>
+      <div class="row"><label>Inicial<input id="kmStart" inputmode="decimal" placeholder="0"></label>
+      <label>Final<input id="kmEnd" inputmode="decimal" placeholder="0"></label></div>
+      <p class="kpi">Recorrido: <strong id="dist">—</strong></p>
+    </div>
+    <div class="card"><div class="head"><h2>Combustible</h2><button type="button" class="ghost" id="addFuel">+ Recarga</button></div>
+      <div id="fuelList"><p class="muted">Sin recargas. Agrega una solo si aplica.</p></div>
+    </div>
+    <div class="card"><h2>Actividades del día</h2>
+      <div id="actChips" class="chips"></div>
+      <div class="adder"><input id="actNew" placeholder="Otra actividad…"><button type="button" class="ghost" id="actAdd">Agregar</button></div>
+    </div>
+    <div class="card"><h2>Incidencias del vehículo</h2>
+      <div id="incChips" class="chips"></div>
+      <div class="adder"><input id="incNew" placeholder="Otra incidencia…"><button type="button" class="ghost" id="incAdd">Agregar</button></div>
+      <div id="incDetail"></div>
+    </div>
+    <div class="card"><h2>Observaciones</h2><textarea id="notes" rows="3" placeholder="Opcional"></textarea></div>
+    <div id="errors" class="errors" role="alert" hidden></div>
+    <div class="actions">
+      <button type="button" class="primary" id="send">Enviar por WhatsApp</button>
+      <button type="button" class="secondary" id="saveOnly">Solo guardar</button>
+      <button type="button" class="ghost" id="preview">Vista previa y exportar (PNG / PDF)</button>
+    </div>
+  </form>
+</section>
+<section id="view-history" class="view" hidden><div id="histList"></div></section>
+<section id="view-settings" class="view" hidden>
+  <div class="card"><h2>Unidad y envío</h2>
+    <label>Nombre de la unidad<input id="sUnit"></label>
+    <label>WhatsApp destino (con código de país)<input id="sPhone" inputmode="tel" placeholder="584121234567"></label>
+    <p class="muted">Sin número, WhatsApp te deja elegir el contacto o grupo.</p></div>
+  <div class="card"><h2>Logo de la empresa</h2>
+    <img id="logoPrev" alt="Logo configurado" hidden>
+    <p class="muted" id="logoHint">Aparece en el encabezado de cada reporte. Usa PNG o JPG.</p>
+    <div class="actions"><label class="secondary filebtn">Elegir logo<input type="file" id="logoFile" accept="image/*" hidden></label>
+    <button type="button" class="ghost" id="logoDel" hidden>Quitar logo</button></div></div>
+  <div class="card"><h2>Choferes</h2><div id="sDrivers" class="chips"></div><div class="adder"><input id="dNew" placeholder="Nuevo chofer"><button class="ghost" id="dAdd">Agregar</button></div></div>
+  <div class="card"><h2>Actividades</h2><div id="sActs" class="chips"></div><div class="adder"><input id="aNew" placeholder="Nueva actividad"><button class="ghost" id="aAdd">Agregar</button></div></div>
+  <div class="card"><h2>Incidencias</h2><div id="sIncs" class="chips"></div><div class="adder"><input id="iNew" placeholder="Nueva incidencia"><button class="ghost" id="iAdd">Agregar</button></div></div>
+  <div class="card"><h2>Respaldo</h2><div class="actions"><button class="secondary" id="export">Exportar historial</button>
+    <label class="secondary filebtn">Importar<input type="file" id="import" accept="application/json" hidden></label></div></div>
+</section>
+</main>
+<footer class="credit">Desarrollado por analista de sistemas Eber Romero</footer>
+<dialog id="dlg"><img id="prevImg" alt="Vista previa del reporte"><div class="actions"><button class="secondary" id="dlgPng">Descargar PNG</button><button class="secondary" id="dlgPdf">Exportar PDF</button><button class="ghost" id="dlgCopy">Copiar texto</button><button class="ghost" id="dlgClose">Cerrar</button></div></dialog>
+<div id="toast" role="status"></div>
+<nav class="tabs"><button data-view="new" class="on">Nuevo</button><button data-view="history">Historial</button><button data-view="settings">Ajustes</button></nav>
+<script src="core.js"></script>
+<script src="report.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "appId": "com.deltamovil.reportes",
+  "appName": "Delta Móvil",
+  "webDir": "www",
+  "android": { "allowMixedContent": false }
+}
